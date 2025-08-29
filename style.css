@@ -1,0 +1,523 @@
+/* --- Police personnalisée --- */
+@font-face {
+  font-family: 'AkiraExpandedDemo';
+  src: url('fonts/akira_expanded_demo-webfont.woff2') format('woff2'),
+       url('fonts/akira_expanded_demo-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --- Style global --- */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  text-align: center;
+  padding: 20px;
+  color: #ffffff;
+  min-height: 100vh;
+  position: relative;
+  background-image: url('https://images.pexels.com/photos/33657356/pexels-photo-33657356.jpeg?cs=srgb&dl=pexels-mikhail-peace-939247406-33657356.jpg&fm=jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
+
+h1 {
+  color: #9f48fd;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+}
+
+/* --- Header --- */
+header {
+  background-color: white;
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+/* --- Logo & Texte --- */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  transition: transform 0.3s;
+}
+
+.logo-container:hover {
+  transform: scale(1.05);
+}
+
+#logo {
+  width: 10vw;
+  max-width: 100px;
+  height: auto;
+}
+
+.logo-text {
+  font-family: 'AkiraExpandedDemo', Arial, sans-serif !important;
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  line-height: 1.1;
+  color: #000;
+  text-align: left;
+}
+
+.title-text {
+  font-family: 'AkiraExpandedDemo', Arial, sans-serif;
+  font-size: clamp(1rem, 3vw, 1.5rem);
+  line-height: 1.1;
+  color: #6A11cb;
+}
+
+.logo-bold {
+  font-weight: bold;
+}
+
+/* --- Menu --- */
+.logo-menu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  text-decoration: none;
+  color: #6a11cb;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #9b59b6;
+}
+
+/* --- Bouton --- */
+#monBouton {
+  display: inline-block;
+  background: linear-gradient(to right, #6a11cb, #9b59b6);
+  color: white;
+  text-decoration: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin: 20px auto;
+  font-family: 'AkiraExpandedDemo', Arial, sans-serif;
+  letter-spacing: 0.05em;
+}
+
+#monBouton:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* --- Section "Nos débuts" (histoire) --- */
+.histoire-section {
+  padding: 2rem;
+  margin: -80px auto 0;
+  max-width: 90%;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.histoire-section:target {
+  opacity: 1;
+}
+
+.histoire-section h1 {
+  color: #6a11cb;
+  font-family: 'AkiraExpandedDemo', Arial, sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.histoire-texte {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #555555;
+  margin-bottom: 1.5rem;
+  text-align: justify;
+}
+
+.histoire-photo {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 15px;
+  margin: 1rem auto;
+  display: block;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Main (accueil) --- */
+main {
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .logo-menu {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #logo {
+    margin-bottom: 10px;
+  }
+
+  .logo-text {
+    font-size: 1rem;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  #monBouton {
+    width: 80%;
+    padding: 12px;
+  }
+
+  .histoire-section {
+    max-width: 95%;
+    padding: 1rem;
+    margin-top: -30px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  body {
+    padding: 10px;
+  }
+
+  #monBouton {
+    width: 90%;
+    font-size: 1rem;
+  }
+
+  .histoire-section h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* --- Défilement fluide --- */
+html {
+  scroll-behavior: smooth;
+}
+
+/* --- Page contact --- */
+.contact-content h1 {
+  font-family: 'AkiraExpandedDemo', Arial, sans-serif;
+  color: #5a00a0;
+  font-size: clamp(2rem, 6vw, 3rem);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.contact-content {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  color: #333;
+}
+
+.contact-content p {
+  color: #333;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+/* Style pour la modale */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  overflow: auto;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  max-width: 90%;
+  max-height: 90%;
+  display: block;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 35px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #999;
+}
+/* --- Section Équipe --- */
+.equipe-section {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  color: #333;
+}
+
+.equipe-section h1 {
+  font-family: 'AkiraExpandedDemo', Arial, sans-serif;
+  color: #6a11cb;
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 1rem;
+}
+
+.equipe-intro {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  line-height: 1.6;
+  color: #ffffff;
+}
+
+/* --- Grille des membres --- */
+.equipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* --- Carte membre --- */
+.membre-card {
+  background-color: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.membre-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.membre-photo-container {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+
+.membre-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.membre-card:hover .membre-photo {
+  transform: scale(1.05);
+}
+
+.membre-nom {
+  font-family: 'AkiraExpandedDemo', Arial, sans-serif;
+  color: #6a11cb;
+  font-size: 1.5rem;
+  margin: 1rem 0 0.5rem;
+}
+
+.membre-role {
+  font-family: 'Roboto', sans-serif;
+  color: #9b59b6;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.membre-bio {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #555;
+  padding: 0 1.5rem 1.5rem;
+}
+
+/* --- Responsive --- */
+/* Conteneur de la photo du membre (version desktop et mobile) */
+.membre-photo-container {
+  width: 100%;
+  height: 250px; /* Hauteur fixe pour uniformiser les cartes */
+  overflow: hidden;
+  background-color: #f5f5f5; /* Fond clair pour éviter les trous */
+  border-radius: 10px 10px 0 0;
+}
+
+/* Photo du membre (version desktop et mobile) */
+.membre-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Remplit tout le conteneur (recadre si nécessaire) */
+  object-position: top; /* Centre sur le haut pour voir les têtes */
+}
+
+/* Responsive : ajustement pour mobile */
+@media (max-width: 768px) {
+  .equipe-grid {
+    grid-template-columns: 1fr;
+  }
+  .membre-photo-container {
+    height: 200px; /* Hauteur légèrement réduite pour mobile */
+  }
+}
+
+/* --- Modale pour les profils --- */
+.profil-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  overflow: auto;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.profil-modal-content {
+  background-color: white;
+  border-radius: 20px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 2rem;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Conteneur de la photo dans la modale */
+.profil-modal-photo-container {
+  width: 100%;
+  height: 300px; /* Hauteur fixe pour la modale */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #f5f5f5;
+  border-radius: 15px;
+}
+
+/* Photo dans la modale */
+.profil-modal-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Remplit tout le conteneur */
+  object-position: top; /* Centre en haut pour voir les têtes */
+  border-radius: 15px;
+}
+
+
+.profil-modal-nom {
+  font-family: 'AkiraExpandedDemo', Arial, sans-serif;
+  color: #6a11cb;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.profil-modal-role {
+  font-family: 'Roboto', sans-serif;
+  color: #9b59b6;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.profil-modal-bio {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+  text-align: left;
+}
+
+.profil-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  color: #666;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.profil-close:hover {
+  color: #333;
+}

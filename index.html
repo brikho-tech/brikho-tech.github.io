@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon site perso - Low-Tech</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<!-- Modale pour afficher les images en grand -->
+<div id="myModal" class="modal">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="modalImage">
+</div>
+
+<body>
+  <header>
+    <div class="logo-menu">
+      <a href="index.html" class="logo-container" aria-label="Accueil La Brikho Tech">
+        <img src="logo.png" alt="Logo de Brikho Tech" id="logo" loading="lazy">
+        <span class="logo-text">
+          <span class="logo-bold"> LA BRIKHO<br>TECH</span>
+        </span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="equipe.html" id="monBouton">l'equipe</a></li>
+          <li><a href="contact.html" id="monBouton">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <h1>Bienvenue sur notre page <br> dédiée à la Low-Tech !</h1>
+    <p>Nous sommes un collectif d'étudiants de diverses filières en CPGE <br> à Faidherbe, nous souhaitons promouvoir nos innovations Low-Tech à travers la France.</p>
+    <a href="#histoire" id="monBouton">Decouvrir</a>
+  </main>
+
+  <!-- Section "Histoire" intégrée -->
+  <section id="histoire" class="histoire-section">
+    <div class="histoire-content">
+      <h1>Nos debuts</h1>
+      <p class="histoire-texte">
+        C'est d'abord une rencontre à l'internat, qui s'est approfondie
+        autour de valeurs communes de contemplations de la nature. Puis,
+        l'envie de ne plus se sentir spectateurs du déclin actuel nous
+        pousse à penser un premier prototype, 5 jours avant la fin d'un appel
+        à projet normalement réservé aux associations. De ce coup d'audace s'est
+        ensuite lancée une course contre la montre entre les deux années de prépas
+        pour avancer sur notre première proposition à savoir: repenser nos
+        systèmes d'eau. L'idée de ce salon est de faire nos premiers pas, premières
+        rencontres dans le petit monde de la Low-Tech, se faire un nom.
+      </p>
+      <img src="https://www.roubaixxl.fr/wp-content/uploads/2023/05/fresque-couvent-des-clarisses-8-1024x682.jpg" alt="Photo de notre équipe" class="histoire-photo">
+      <p class="histoire-texte">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+      <img src="photo2.jpg" alt="Photo de nos projets" class="histoire-photo">
+      <p class="histoire-texte">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      </p>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - Brikho Tech</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Style spécifique pour la page contact */
+    .contact-content {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: left;
+    }
+    .contact-form {
+      margin-top: 20px;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .contact-form button {
+      background: linear-gradient(to right, #6a11cb, #9b59b6);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .contact-form button:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-menu">
+      <a href="index.html" class="logo-container" aria-label="Accueil La Brikho Tech">
+        <img src="logo.png" alt="Logo de Brikho Tech" id="logo" loading="lazy">
+        <span class="logo-text">
+          la <span class="logo-bold">Brikho<br>Tech</span>
+        </span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="equipe.html"id="monBouton">l'equipe</a></li>
+          <li><a href="contact.html"id="monBouton">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <div class="contact-content">
+      <h1>Contactez-nous</h1>
+      <p>Vous avez une question ou souhaitez en savoir plus sur nos projets ? N'hésitez pas à nous contacter !</p>
+      <form class="contact-form" action= "https://formspree.io/f/mdklaody" method="POST">
+        <input type="text" name="nom" placeholder="Votre nom" required>
+        <input type="email" name="email" placeholder="Votre email" required>
+        <textarea name="message" placeholder="Votre message" rows="5" required></textarea>
+        <button type="submit">Envoyer</button>
+      </form>
+    </div>
+  </main>
+</body>
+</html>
