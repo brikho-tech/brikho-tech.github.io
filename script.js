@@ -70,3 +70,34 @@ profilModal.addEventListener('click', (event) => {
   }
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  // ... (ton code existant pour la modale)
+
+  // Gestion du contenu long dans la bio
+  const bioElement = document.getElementById('profilModalBio');
+  if (bioElement) {
+    if (bioElement.scrollHeight > bioElement.clientHeight) {
+      const toggleButton = document.createElement('button');
+      toggleButton.textContent = 'Voir plus';
+      toggleButton.style.marginTop = '10px';
+      toggleButton.style.alignSelf = 'flex-start';
+      toggleButton.style.background = 'none';
+      toggleButton.style.border = 'none';
+      toggleButton.style.color = '#6a11cb';
+      toggleButton.style.cursor = 'pointer';
+      toggleButton.style.fontFamily = 'Roboto, sans-serif';
+
+      toggleButton.addEventListener('click', () => {
+        if (bioElement.style.maxHeight === 'none') {
+          bioElement.style.maxHeight = '280px';
+          toggleButton.textContent = 'Voir plus';
+        } else {
+          bioElement.style.maxHeight = 'none';
+          toggleButton.textContent = 'Voir moins';
+        }
+      });
+
+      bioElement.parentNode.appendChild(toggleButton);
+    }
+  }
+});

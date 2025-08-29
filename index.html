@@ -1,6 +1,84 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+  <!-- OneSignal -->
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+  <script>
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(async function(OneSignal) {
+      await OneSignal.init({
+        appId: "f5086ed5-b118-4257-830c-2c1a85a46047",
+        safari_web_id: "web.onesignal.auto.12345678-9abc-def0-1234-56789abcdef0", // Optionnel, à remplir si tu veux supporter Safari
+        notifyButton: {
+          enable: true,
+          size: 'medium',
+          color: '#6a11cb', // Couleur violette de ton site
+          position: 'bottom-right',
+          text: {
+            'tip.state.unsubscribed': 'Recevoir nos actus',
+            'tip.state.subscribed': "Vous êtes abonné !",
+            'tip.state.blocked': "Les notifications sont bloquées",
+            'message.prompt': "Souhaitez-vous recevoir nos actualités Low-Tech ? (Moins d'une par mois)",
+            'message.action.subscribed': "OK",
+            'message.action.blocked': "Non merci"
+          },
+          offset: {
+            bottom: '20px',
+            right: '20px'
+          }
+        },
+        promptOptions: {
+          actionMessage: "Nous publions rarement des notifications, uniquement pour nos actualités importantes.",
+          exampleNotificationTitle: "Brikho Tech",
+          exampleNotificationMessage: "Nouvelle actu : Découvrez notre dernier prototype Low-Tech !",
+          exampleNotificationCaption: "Cliquez pour vous abonner",
+          acceptButtonText: "Oui, notifiez-moi",
+          cancelButtonText: "Non merci"
+        },
+        welcomeNotification: {
+          disable: true // Désactive la notification de bienvenue automatique
+        },
+        delay: {
+          pageViews: 1, // Demande après 1 page vue
+          timeDelay: 30 // Demande après 30 secondes
+        }
+      });
+
+      // Écouteur pour envoyer une notification quand une nouvelle actu est publiée
+      OneSignal.on('subscriptionChange', function(isSubscribed) {
+        if (isSubscribed) {
+          console.log("Utilisateur abonné aux notifications !");
+        }
+      });
+    });
+  </script>
+
+  <!-- Détection des navigateurs non compatibles avec les notifications push -->
+  <script>
+    // Vérifie si le navigateur supporte les notifications push
+    document.addEventListener('DOMContentLoaded', function() {
+      if (!("Notification" in window) || !("serviceWorker" in navigator) || !("pushManager" in window)) {
+        const browserWarning = document.createElement('div');
+        browserWarning.style.background = '#fff3cd';
+        browserWarning.style.padding = '12px';
+        browserWarning.style.textAlign = 'center';
+        browserWarning.style.margin = '10px auto 20px';
+        browserWarning.style.borderRadius = '5px';
+        browserWarning.style.maxWidth = '800px';
+        browserWarning.style.boxShadow = '0 2px 5px rgba(0,0,0,0.1)'
+        browserWarning.innerHTML = `
+          <p style="margin: 0; color: #6a11cb; font-family: 'Roboto', sans-serif;">
+            Pour recevoir nos actus mensuelles, nous vous recommandons d'utiliser
+            <a href="https://www.google.com/chrome/" target="_blank" style="color: #6a11cb; font-weight: bold;">Chrome</a>,
+            <a href="https://www.mozilla.org/fr/firefox/" target="_blank" style="color: #6a11cb; font-weight: bold;">Firefox</a> ou
+            <a href="https://www.microsoft.com/fr-fr/edge" target="_blank" style="color: #6a11cb; font-weight: bold;">Edge</a>.
+          </p>
+        `;
+        document.querySelector('header').after(browserWarning);
+      }
+    });
+  </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mon site perso - Low-Tech</title>
@@ -13,7 +91,6 @@
   <span class="close">&times;</span>
   <img class="modal-content" id="modalImage">
 </div>
-
 <body>
   <header>
     <div class="logo-menu">
@@ -26,17 +103,17 @@
       <nav>
         <ul>
           <li><a href="equipe.html" id="monBouton">l'equipe</a></li>
+          <li><a href="actus.html" id="monBouton">Actualites</a></li>
           <li><a href="contact.html" id="monBouton">Contact</a></li>
         </ul>
       </nav>
     </div>
   </header>
   <main>
-    <h1>Bienvenue sur notre page <br> dédiée à la Low-Tech !</h1>
-    <p>Nous sommes un collectif d'étudiants de diverses filières en CPGE <br> à Faidherbe, nous souhaitons promouvoir nos innovations Low-Tech à travers la France.</p>
+    <h1>Bienvenue sur notre page !</h1>
+    <p>Nous sommes un collectif d'étudiants engagés pour l'avenir.</p>
     <a href="#histoire" id="monBouton">Decouvrir</a>
   </main>
-
   <!-- Section "Histoire" intégrée -->
   <section id="histoire" class="histoire-section">
     <div class="histoire-content">
@@ -62,8 +139,15 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </p>
     </div>
-  </section>
-
-  <script src="script.js"></script>
+      </section>
+      <script src="script.js"></script><!-- Place ce code JUSTE AVANT la fermeture de </body> (après le script.js) -->
+      <div class="insta-float-container">
+        <div class="insta-float">
+          <a href="https://www.instagram.com/brikhotech/" target="_blank" aria-label="Notre Instagram">
+            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384031.png" alt="Instagram" class="insta-icon" loading="lazy">
+          </a>
+        </div>
+      </div>
+      
 </body>
 </html>

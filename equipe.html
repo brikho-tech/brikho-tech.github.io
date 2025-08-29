@@ -1,11 +1,109 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+  <!-- OneSignal -->
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+  <script>
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(async function(OneSignal) {
+      await OneSignal.init({
+        appId: "f5086ed5-b118-4257-830c-2c1a85a46047",
+        safari_web_id: "web.onesignal.auto.12345678-9abc-def0-1234-56789abcdef0",
+        notifyButton: {
+          enable: true,
+          size: 'medium',
+          color: '#6a11cb',
+          position: 'bottom-right',
+          text: {
+            'tip.state.unsubscribed': 'Recevoir nos actus',
+            'tip.state.subscribed': "Vous êtes abonné !",
+            'tip.state.blocked': "Les notifications sont bloquées",
+            'message.prompt': "Souhaitez-vous recevoir nos actualités Low-Tech ? (Moins d'une par mois)",
+            'message.action.subscribed': "OK",
+            'message.action.blocked': "Non merci"
+          },
+          offset: { bottom: '20px', right: '20px' }
+        },
+        promptOptions: {
+          actionMessage: "Nous publions rarement des notifications, uniquement pour nos actualités importantes.",
+          exampleNotificationTitle: "Brikho Tech",
+          exampleNotificationMessage: "Nouvelle actu : Découvrez notre dernier prototype Low-Tech !",
+          exampleNotificationCaption: "Cliquez pour vous abonner",
+          acceptButtonText: "Oui, notifiez-moi",
+          cancelButtonText: "Non merci"
+        },
+        welcomeNotification: { disable: true },
+        delay: { pageViews: 1, timeDelay: 30 }
+      });
+    });
+  </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notre equipe - Brikho Tech</title>
+  <title>Notre équipe - Brikho Tech</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Style pour les images des membres (taille réduite) */
+    .membre-photo-container {
+      width: 100%;
+      height: 200px; /* Hauteur réduite pour éviter les images trop grandes */
+      overflow: hidden;
+      background-color: #f5f5f5;
+      border-radius: 10px 10px 0 0;
+    }
+    .membre-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Recadre l'image pour qu'elle remplisse le conteneur */
+      object-position: top; /* Centre en haut pour voir les têtes */
+    }
+    /* Style pour les icônes sociales */
+    .membre-social {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0;
+    }
+    .social-link {
+      display: inline-block;
+      margin: 0 5px;
+      transition: transform 0.3s;
+    }
+    .social-link:hover {
+      transform: scale(1.2);
+    }
+    .social-icon {
+      width: 20px; /* Taille réduite pour les icônes */
+      height: 20px;
+      filter: invert(30%) sepia(100%) saturate(3000%) hue-rotate(200deg); /* Couleur LinkedIn */
+    }
+    /* Style pour l'icône Instagram flottante (à ajouter en bas à droite) */
+    .insta-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      width: 50px;
+      height: 50px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .insta-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+    .insta-icon {
+      width: 24px;
+      height: 24px;
+      filter: invert(30%) sepia(100%) saturate(3000%) hue-rotate(310deg); /* Couleur Instagram */
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -19,6 +117,7 @@
       <nav>
         <ul>
           <li><a href="equipe.html" id="monBouton">L'equipe</a></li>
+          <li><a href="actus.html" id="monBouton">Actualites</a></li>
           <li><a href="contact.html" id="monBouton">Contact</a></li>
         </ul>
       </nav>
@@ -29,46 +128,70 @@
     <section class="equipe-section">
       <h1>Notre equipe</h1>
       <p class="equipe-intro">
-        Découvrez les membres passionnés qui composent notre collectif Low-Tech.
-        Chaque profil apporte une expertise unique pour innover durablement.
+        Découvrez les membres qui composent notre collectif.
       </p>
       <div class="equipe-grid">
         <!-- Membre 1 -->
         <div class="membre-card">
           <div class="membre-photo-container">
-            <img src="https://thumbs.dreamstime.com/b/une-oie-blanche-sur-l-herbe-verte-67715258.jpg" alt="Photo de Jean Dupont" class="membre-photo" loading="lazy">
+            <img src="images/eloi.jpg" alt="Photo d'Eloi Kreel" class="membre-photo" loading="lazy">
           </div>
-          <h3 class="membre-nom">Et l'oie Kreel</h3>
+          <h3 class="membre-nom">Eloi Kreel</h3>
           <p class="membre-role">Fondateur & étudiant en BCPST</p>
           <p class="membre-bio">
             Passionné par la Low-Tech, Eloi a initié le projet avec une vision claire : penser la technologie dans un monde sans électricité.
           </p>
+          <!-- Lien LinkedIn (après la bio) -->
+          <div class="membre-social">
+            <a href="https://www.linkedin.com/in/eloi-kreel-3060652b8/" target="_blank" aria-label="LinkedIn d'Eloi Kreel" class="social-link">
+              <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" class="social-icon" loading="lazy">
+            </a>
+          </div>
         </div>
+
         <!-- Membre 2 -->
         <div class="membre-card">
           <div class="membre-photo-container">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Louis_XIV_of_France.jpg/330px-Louis_XIV_of_France.jpg" alt="Photo de Marie Martin" class="membre-photo" loading="lazy">
+            <img src='images/MINE-DES-MINES-290.jpg' alt="Photo de Louis Valambois" class="membre-photo" loading="lazy">
           </div>
           <h3 class="membre-nom">Louis Valambois</h3>
           <p class="membre-role">Co-Fondateur & étudiant en MPSI</p>
           <p class="membre-bio">
             Jeune débrouillard de Roubaix, Louis a su s'en sortir avec une fibre pour l'innovation poussé par sa passion des maths et du changement.
           </p>
+          <div class="membre-social">
+            <a href="https://www.linkedin.com/in/louis-valambois-4659b32b4/" target="_blank" aria-label="LinkedIn de Louis Valambois" class="social-link">
+              <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" class="social-icon" loading="lazy">
+            </a>
+          </div>
         </div>
+
         <!-- Membre 3 -->
-        <div class="membre-card">
+        <!--<div class="membre-card">
           <div class="membre-photo-container">
-            <img src="https://images.schoolmouv.fr/paul-claudel.jpg" alt="Photo de Paul Leroy" class="membre-photo" loading="lazy">
+            <img src="https://images.schoolmouv.fr/paul-claudel.jpg" alt="Photo de Paul Claudel" class="membre-photo" loading="lazy">
           </div>
           <h3 class="membre-nom">Paul Claudel</h3>
           <p class="membre-role">Développeur & Technicien</p>
           <p class="membre-bio">
             Expert en systèmes embarqués, Paul développe des prototypes Low-Tech robustes et adaptés aux besoins du terrain.
           </p>
-        </div>
+          <div class="membre-social">
+            <a href="https://www.linkedin.com/in/paulclaudel" target="_blank" aria-label="LinkedIn de Paul Claudel" class="social-link">
+              <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" class="social-icon" loading="lazy">
+            </a>
+          </div>
+        </div>-->
       </div>
     </section>
   </main>
+
+  <!-- Lien Instagram flottant (ajouté en bas à droite) -->
+  <div class="insta-float">
+    <a href="https://www.instagram.com/brikhotech/" target="_blank" aria-label="Notre Instagram">
+      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384031.png" alt="Instagram" class="insta-icon" loading="lazy">
+    </a>
+  </div>
 
   <!-- Modale pour afficher les profils en grand -->
   <div id="profilModal" class="profil-modal">
@@ -83,10 +206,9 @@
     </div>
   </div>
 
-  <!-- Script à la fin du body pour s'assurer que le DOM est chargé -->
+  <!-- Script pour la modale -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Récupère les cartes des membres et la modale
       const membreCards = document.querySelectorAll('.membre-card');
       const profilModal = document.getElementById('profilModal');
       const profilModalPhoto = document.getElementById('profilModalPhoto');
@@ -95,19 +217,16 @@
       const profilModalBio = document.getElementById('profilModalBio');
       const profilClose = document.querySelector('.profil-close');
 
-      // Ouvre la modale avec les infos du membre cliqué
       membreCards.forEach(card => {
         card.addEventListener('click', () => {
           const photo = card.querySelector('.membre-photo').src;
           const nom = card.querySelector('.membre-nom').textContent;
           const role = card.querySelector('.membre-role').textContent;
           const bio = card.querySelector('.membre-bio').textContent;
-
           profilModalPhoto.src = photo;
           profilModalNom.textContent = nom;
           profilModalRole.textContent = role;
           profilModalBio.textContent = bio;
-
           profilModal.style.display = 'flex';
           setTimeout(() => {
             profilModal.style.opacity = '1';
@@ -115,7 +234,6 @@
         });
       });
 
-      // Ferme la modale
       profilClose.addEventListener('click', () => {
         profilModal.style.opacity = '0';
         setTimeout(() => {
@@ -123,7 +241,6 @@
         }, 300);
       });
 
-      // Ferme la modale en cliquant en dehors
       profilModal.addEventListener('click', (event) => {
         if (event.target === profilModal) {
           profilModal.style.opacity = '0';

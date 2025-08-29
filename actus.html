@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Actualités - Brikho Tech</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- OneSignal -->
+  <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+  <script>
+    window.OneSignalDeferred = window.OneSignalDeferred || [];
+    OneSignalDeferred.push(async function(OneSignal) {
+      await OneSignal.init({
+        appId: "f5086ed5-b118-4257-830c-2c1a85a46047",
+        safari_web_id: "web.onesignal.auto.12345678-9abc-def0-1234-56789abcdef0",
+        notifyButton: {
+          enable: true,
+          size: 'medium',
+          color: '#6a11cb',
+          position: 'bottom-right',
+          text: {
+            'tip.state.unsubscribed': 'Recevoir nos actus',
+            'tip.state.subscribed': "Vous êtes abonné !",
+            'tip.state.blocked': "Les notifications sont bloquées",
+            'message.prompt': "Souhaitez-vous recevoir nos actualités Low-Tech ? (Moins d'une par mois)",
+            'message.action.subscribed': "OK",
+            'message.action.blocked': "Non merci"
+          },
+          offset: { bottom: '20px', right: '20px' }
+        },
+        promptOptions: {
+          actionMessage: "Nous publions rarement des notifications, uniquement pour nos actualités importantes.",
+          exampleNotificationTitle: "Brikho Tech",
+          exampleNotificationMessage: "Nouvelle actu : Découvrez notre dernier prototype Low-Tech !",
+          exampleNotificationCaption: "Cliquez pour vous abonner",
+          acceptButtonText: "Oui, notifiez-moi",
+          cancelButtonText: "Non merci"
+        },
+        welcomeNotification: { disable: true },
+        delay: { pageViews: 1, timeDelay: 30 }
+      });
+
+      OneSignal.on('subscriptionChange', function(isSubscribed) {
+        if (isSubscribed) {
+          console.log("Utilisateur abonné aux notifications !");
+        }
+      });
+    });
+  </script>
+
+  <style>
+    /* Style spécifique pour les actus */
+    .actus-section {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .actus-title {
+      font-family: 'AkiraExpandedDemo', Arial, sans-serif;
+      color: #6a11cb;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: clamp(2rem, 5vw, 2.5rem);
+    }
+
+    .actus-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .actus-card {
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    .actus-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .actus-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .actus-content {
+      padding: 20px;
+    }
+
+    .actus-content h3 {
+      font-family: 'AkiraExpandedDemo', Arial, sans-serif;
+      color: #6a11cb;
+      margin-bottom: 10px;
+    }
+
+    .actus-date {
+      color: #9b59b6;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+
+    .actus-text {
+      color: #555;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .actus-link {
+      display: inline-block;
+      color: #6a11cb;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .actus-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .actus-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Style pour la cloche de notifications */
+    .notification-bell-container {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      z-index: 9998;
+      width: 50px;
+      height: 50px;
+    }
+
+    .notification-bell {
+      width: 100%;
+      height: 100%;
+      background-color: #6a11cb;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .notification-bell:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      background-color: #5a00a0;
+    }
+
+    .bell-icon {
+      width: 24px;
+      height: 24px;
+      fill: white;
+      transition: transform 0.3s;
+    }
+
+    .notification-bell:hover .bell-icon {
+      transform: scale(1.1);
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      width: 18px;
+      height: 18px;
+      background-color: #ff4444;
+      border-radius: 50%;
+      border: 2px solid white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 10px;
+      color: white;
+      font-weight: bold;
+    }
+
+    .notification-bell::after {
+      content: "Notifications mensuelles";
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #333;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+      margin-bottom: 10px;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .notification-bell:hover::after {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    @media (max-width: 768px) {
+      .notification-bell-container {
+        bottom: 120px;
+        right: 15px;
+        width: 45px;
+        height: 45px;
+      }
+      .bell-icon {
+        width: 20px;
+        height: 20px;
+      }
+      .notification-badge {
+        width: 16px;
+        height: 16px;
+        font-size: 9px;
+      }
+    }
+
+    /* Modale de fallback */
+    .fallback-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 10000;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .fallback-modal-content {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .fallback-modal h2 {
+      color: #6a11cb;
+      font-family: 'AkiraExpandedDemo', Arial, sans-serif;
+      margin-bottom: 20px;
+    }
+
+    .fallback-modal p {
+      color: #555;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .browser-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .browser-icons a {
+      display: block;
+      text-align: center;
+    }
+
+    .browser-icons img {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 5px;
+    }
+
+    .fallback-modal-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .fallback-modal-close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      color: #666;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <!-- Fond fixe + overlay -->
+  <div class="body-background"></div>
+
+  <header>
+    <div class="logo-menu">
+      <a href="index.html" class="logo-container" aria-label="Accueil La Brikho Tech">
+        <img src="logo.png" alt="Logo de Brikho Tech" id="logo" loading="lazy">
+        <span class="logo-text">
+          <span class="logo-bold">LA BRIKHO<br>TECH</span>
+        </span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="equipe.html" id="monBouton">L'equipe</a></li>
+          <li><a href="actus.html" id="monBouton">Actualites</a></li>
+          <li><a href="contact.html" id="monBouton">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="actus-section">
+      <h1 class="actus-title">Nos Actualites</h1>
+      <div class="actus-grid">
+        <!-- Actu 1 -->
+        <article class="actus-card">
+          <img src="https://via.placeholder.com/400x250/6a11cb/ffffff?text=Actu+1" alt="Actualité 1" class="actus-image" loading="lazy">
+          <div class="actus-content">
+            <h3>Lancement de notre nouveau prototype</h3>
+            <p class="actus-date">11 octobre 2025</p>
+            <p class="actus-text">
+              Nous sommes fiers d'annoncer que notre nouveau prototype Low-Tech voit le jour...
+            </p>
+            <a href="prototype.html" class="actus-link">Lire la suite</a>
+          </div>
+        </article>
+
+        <!-- Actu 2 -->
+        <article class="actus-card">
+          <img src="https://via.placeholder.com/400x250/6a11cb/ffffff?text=Actu+2" alt="Actualité 2" class="actus-image" loading="lazy">
+          <div class="actus-content">
+            <h3>Suite du salon Low-Tech</h3>
+            <p class="actus-date">27 septembre 2025</p>
+            <p class="actus-text">
+              Aujourd'hui avec les adultes nous avons animé un atelier de pensée...
+            </p>
+            <a href="partenariat.html" class="actus-link">Lire la suite</a>
+          </div>
+        </article>
+
+        <!-- Actu 3 -->
+        <article class="actus-card">
+          <img src="https://via.placeholder.com/400x250/6a11cb/ffffff?text=Actu+3" alt="Actualité 3" class="actus-image" loading="lazy">
+          <div class="actus-content">
+            <h3>Salon Low-Tech à Roubaix</h3>
+            <p class="actus-date">26 septembre 2025</p>
+            <p class="actus-text">
+              Nous avons animé un atelier sur la Low-Tech pour les enfants...
+            </p>
+            <a href="atelier.html" class="actus-link">Lire la suite</a>
+          </div>
+        </article>
+      </div>
+
+      <!-- Icône Instagram flottante -->
+      <div class="insta-float-container">
+        <div class="insta-float">
+          <a href="https://www.instagram.com/brikhotech/" target="_blank" aria-label="Notre Instagram">
+            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384031.png" alt="Instagram" class="insta-icon" loading="lazy">
+          </a>
+        </div>
+      </div>
+
+      <!-- Cloche de notifications -->
+      <div class="notification-bell-container">
+        <div class="notification-bell" id="notificationBell">
+          <svg class="bell-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+          </svg>
+          <div class="notification-badge" id="notificationBadge">1</div>
+        </div>
+      </div>
+
+      <!-- Modale de fallback -->
+      <div class="fallback-modal" id="fallbackModal">
+        <div class="fallback-modal-content">
+          <span class="fallback-modal-close" id="fallbackModalClose">&times;</span>
+          <h2>Notifications non supportees</h2>
+          <p>Votre navigateur ne supporte pas les notifications push. Pour recevoir nos actualités mensuelles, nous vous recommandons d'utiliser :</p>
+          <div class="browser-icons">
+            <a href="https://www.google.com/chrome/" target="_blank">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Google_Chrome_icon_%28February_2022%29.svg/120px-Google_Chrome_icon_%28February_2022%29.svg.png" alt="Chrome">
+              <span>Chrome</span>
+            </a>
+            <a href="https://www.mozilla.org/fr/firefox/" target="_blank">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Firefox_logo%2C_2019.svg/120px-Firefox_logo%2C_2019.svg.png" alt="Firefox">
+              <span>Firefox</span>
+            </a>
+            <a href="https://www.microsoft.com/fr-fr/edge" target="_blank">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Microsoft_Edge_logo_%282019%29.svg/120px-Microsoft_Edge_logo_%282019%29.svg.png" alt="Edge">
+              <span>Edge</span>
+            </a>
+          </div>
+          <p>Ou abonnez-vous à notre newsletter :</p>
+          <div class="fallback-modal-buttons">
+            <button id="newsletterButton" style="background: #6a11cb; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Newsletter</button>
+            <button id="fallbackCloseButton" style="background: #f0f0f0; color: #333; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Fermer</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Script pour gérer la cloche de notifications -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const notificationBell = document.getElementById('notificationBell');
+      const notificationBadge = document.getElementById('notificationBadge');
+      const fallbackModal = document.getElementById('fallbackModal');
+      const fallbackModalClose = document.getElementById('fallbackModalClose');
+      const fallbackCloseButton = document.getElementById('fallbackCloseButton');
+      const newsletterButton = document.getElementById('newsletterButton');
+
+      // Vérifie si le navigateur supporte les notifications
+      function isNotificationSupported() {
+        return 'Notification' in window &&
+               'serviceWorker' in navigator &&
+               'pushManager' in window;
+      }
+
+      // Vérifie si OneSignal est chargé et si l'utilisateur est abonné
+      function checkNotificationStatus() {
+        if (window.OneSignal) {
+          OneSignal.push(function() {
+            OneSignal.isPushNotificationsEnabled(function(isEnabled) {
+              if (isEnabled) {
+                notificationBell.style.backgroundColor = '#4CAF50';
+                notificationBadge.style.display = 'none';
+              } else {
+                notificationBell.style.backgroundColor = '#6a11cb';
+                notificationBadge.style.display = 'flex';
+              }
+            });
+          });
+        }
+      }
+
+      // Gère le clic sur la cloche
+      notificationBell.addEventListener('click', function() {
+        if (!isNotificationSupported()) {
+          // Affiche les instructions si les notifications ne sont pas supportées
+          fallbackModal.style.display = 'flex';
+          setTimeout(() => {
+            fallbackModal.style.opacity = '1';
+          }, 10);
+          return;
+        }
+
+        if (window.OneSignal) {
+          OneSignal.push(function() {
+            // Vérifie d'abord si les notifications sont supportées
+            if (OneSignal.isPushNotificationsSupported()) {
+              OneSignal.showSlidedownPrompt({
+                force: true
+              });
+            } else {
+              // Affiche la modale de fallback
+              fallbackModal.style.display = 'flex';
+              setTimeout(() => {
+                fallbackModal.style.opacity = '1';
+              }, 10);
+            }
+            // Met à jour l'apparence après le clic
+            setTimeout(checkNotificationStatus, 1000);
+          });
+        } else {
+          // OneSignal n'est pas chargé, affiche la modale de fallback
+          fallbackModal.style.display = 'flex';
+          setTimeout(() => {
+            fallbackModal.style.opacity = '1';
+          }, 10);
+        }
+      });
+
+      // Vérifie le statut au chargement
+      if (isNotificationSupported()) {
+        checkNotificationStatus();
+      } else {
+        // Si les notifications ne sont pas supportées, change la couleur de la cloche
+        notificationBell.style.backgroundColor = '#9E9E9E';
+      }
+
+      // Gère la fermeture de la modale de fallback
+      function closeFallbackModal() {
+        fallbackModal.style.opacity = '0';
+        setTimeout(() => {
+          fallbackModal.style.display = 'none';
+        }, 300);
+      }
+
+      fallbackModalClose.addEventListener('click', closeFallbackModal);
+      fallbackCloseButton.addEventListener('click', closeFallbackModal);
+
+      // Ferme la modale en cliquant en dehors
+      fallbackModal.addEventListener('click', function(event) {
+        if (event.target === fallbackModal) {
+          closeFallbackModal();
+        }
+      });
+
+      // Ferme la modale avec la touche Echap
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && fallbackModal.style.display === 'flex') {
+          closeFallbackModal();
+        }
+      });
+
+      // Gère le clic sur le bouton newsletter
+      newsletterButton.addEventListener('click', function() {
+        alert("Un formulaire d'abonnement à la newsletter s'ouvrirait ici.");
+        // Tu peux remplacer cette alerte par un vrai formulaire ou une redirection
+        // vers un service comme Mailchimp
+      });
+
+      // Met à jour le badge si l'utilisateur s'abonne/désabonne
+      if (window.OneSignal) {
+        OneSignal.on('subscriptionChange', function(isSubscribed) {
+          if (isSubscribed) {
+            notificationBell.style.backgroundColor = '#4CAF50';
+            notificationBadge.style.display = 'none';
+          } else {
+            notificationBell.style.backgroundColor = '#6a11cb';
+            notificationBadge.style.display = 'flex';
+          }
+        });
+      }
+    });
+  </script>
+
+  <!-- Style pour l'icône Instagram flottante -->
+  <style>
+    .insta-float-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 9999;
+      width: 50px;
+      height: 50px;
+    }
+
+    .insta-float {
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .insta-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .insta-icon {
+      width: 24px;
+      height: 24px;
+      filter: invert(30%) sepia(100%) saturate(3000%) hue-rotate(310deg);
+      transition: transform 0.3s;
+    }
+
+    .insta-float:hover .insta-icon {
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+      .insta-float-container {
+        bottom: 15px;
+        right: 15px;
+        width: 45px;
+        height: 45px;
+      }
+
+      .insta-icon {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  </style>
+</body>
+</html>

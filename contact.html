@@ -1,6 +1,59 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+  <!-- OneSignal -->
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "f5086ed5-b118-4257-830c-2c1a85a46047",
+      safari_web_id: "web.onesignal.auto.12345678-9abc-def0-1234-56789abcdef0", // Optionnel, à remplir si tu veux supporter Safari
+      notifyButton: {
+        enable: true,
+        size: 'medium',
+        color: '#6a11cb', // Couleur violette de ton site
+        position: 'bottom-right',
+        text: {
+          'tip.state.unsubscribed': 'Recevoir nos actus',
+          'tip.state.subscribed': "Vous êtes abonné !",
+          'tip.state.blocked': "Les notifications sont bloquées",
+          'message.prompt': "Souhaitez-vous recevoir nos actualités Low-Tech ? (Moins d'une par mois)",
+          'message.action.subscribed': "OK",
+          'message.action.blocked': "Non merci"
+        },
+        offset: {
+          bottom: '20px',
+          right: '20px'
+        }
+      },
+      promptOptions: {
+        /* Personnalisation de la demande d'autorisation */
+        actionMessage: "Nous publions rarement des notifications, uniquement pour nos actualités importantes.",
+        exampleNotificationTitle: "Brikho Tech",
+        exampleNotificationMessage: "Nouvelle actu : Découvrez notre dernier prototype Low-Tech !",
+        exampleNotificationCaption: "Cliquez pour vous abonner",
+        acceptButtonText: "Oui, notifiez-moi",
+        cancelButtonText: "Non merci"
+      },
+      welcomeNotification: {
+        disable: true // Désactive la notification de bienvenue automatique
+      },
+      delay: {
+        pageViews: 1, // Demande après 1 page vue
+        timeDelay: 30 // Demande après 30 secondes
+      }
+    });
+
+    // Écouteur pour envoyer une notification quand une nouvelle actu est publiée
+    OneSignal.on('subscriptionChange', function(isSubscribed) {
+      if (isSubscribed) {
+        console.log("Utilisateur abonné aux notifications !");
+      }
+    });
+  });
+</script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact - Brikho Tech</title>
@@ -56,6 +109,7 @@
       <nav>
         <ul>
           <li><a href="equipe.html"id="monBouton">l'equipe</a></li>
+          <li><a href="actus.html" id="monBouton">Actualites</a></li>
           <li><a href="contact.html"id="monBouton">Contact</a></li>
         </ul>
       </nav>
@@ -71,6 +125,13 @@
         <textarea name="message" placeholder="Votre message" rows="5" required></textarea>
         <button type="submit">Envoyer</button>
       </form>
+    </div>
+    <div class="insta-float-container">
+      <div class="insta-float">
+        <a href="https://www.instagram.com/brikhotech/" target="_blank" aria-label="Notre Instagram">
+          <img src="https://cdn-icons-png.flaticon.com/512/1384/1384031.png" alt="Instagram" class="insta-icon" loading="lazy">
+        </a>
+      </div>
     </div>
   </main>
 </body>
